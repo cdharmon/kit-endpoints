@@ -1,0 +1,86 @@
+swagger: "2.0"
+info:
+  description: |
+    This is a simple string service API
+  version: "1.0.0"
+  title: go-kit stringsvc
+host: wkh-cloud-endpoints.appspot.com
+basePath: /
+schemes:
+  - http
+paths:
+  /upper:
+    post:
+      tags:
+        - conversion
+      summary: convert a string to upper case
+      description: ""
+      operationId: upperCase
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: str
+          description: String to be converted to upper case
+          required: true
+          schema:
+            $ref: "#/definitions/InString"
+      responses:
+        "200":
+          description: converted string
+          schema:
+            $ref: "#/definitions/UpperCaseResponse"
+        "405":
+          description: Invalid input
+
+  /count:
+    post:
+      tags:
+        - computation
+      summary: count the number of characters in a string
+      description: ""
+      operationId: countChars
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: str
+          description: string to be examined
+          required: true
+          schema:
+            $ref: "#/definitions/InString"
+      responses:
+        "200":
+          description: character count
+          schema:
+            $ref: "#/definitions/CountResponse"
+        "405":
+          description: Invalid input
+definitions:
+  InString:
+    type: object
+    required: 
+      - s
+    properties:
+      s:
+        type: string
+  CountResponse:
+    type: object
+    required:
+      - s
+    properties:
+      s:
+        type: integer
+  UpperCaseResponse:
+    type: object
+    required:
+      - v
+    properties:
+      v:
+        type: string
+      err:
+        type: string
